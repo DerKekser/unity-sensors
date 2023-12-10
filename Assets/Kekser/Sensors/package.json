@@ -1,0 +1,12 @@
+{
+    "name": "com.kekser.sensors",
+    "displayName": "Sensors",
+    "author": { "name": "Kekser", "url": "https://github.com/DerKekser" },
+    "version": "1.0.0",
+    "unity": "2020.3",
+    "description": "A Sensor system for Unity",
+    "keywords": [ "sensor", "sensors", "visibility" ],
+    "license": "MIT",
+    "category": "Tools",
+    "dependencies": {}
+}

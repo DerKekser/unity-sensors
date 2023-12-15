@@ -1,6 +1,6 @@
 {
     "name": "Sensors",
-    "rootNamespace": "Kekser",
+    "rootNamespace": "",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

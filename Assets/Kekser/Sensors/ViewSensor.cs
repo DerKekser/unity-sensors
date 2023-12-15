@@ -24,18 +24,8 @@ namespace Kekser.Sensors
 
         private void OnDrawGizmosSelected()
         {
-            Vector3 rotatedDirection;
-            Gizmos.color = Color.white;
-            Gizmos.DrawRay(transform.position, transform.forward * _range);
             Gizmos.color = Color.yellow;
-            rotatedDirection = Quaternion.Euler(0, _angle / 2f, 0) * Vector3.forward;
-            Gizmos.DrawRay(transform.position, transform.TransformDirection(rotatedDirection) * _range);
-            rotatedDirection = Quaternion.Euler(0, -_angle  / 2f, 0) * Vector3.forward;
-            Gizmos.DrawRay(transform.position, transform.TransformDirection(rotatedDirection) * _range);
-            rotatedDirection = Quaternion.Euler(_angle / 2f, 0, 0) * Vector3.forward;
-            Gizmos.DrawRay(transform.position, transform.TransformDirection(rotatedDirection) * _range);
-            rotatedDirection = Quaternion.Euler(-_angle / 2f, 0, 0) * Vector3.forward;
-            Gizmos.DrawRay(transform.position, transform.TransformDirection(rotatedDirection) * _range);
+            SensorGizmos.DrawWireView(transform.position, transform.forward, _range, _angle);
         }
     }
 }

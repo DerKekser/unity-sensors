@@ -1,7 +1,6 @@
 # Unity - Sensors
 
-[Sensors](https://github.com/DerKekser/unity-sensors) is a library for Unity that provides different 2D and 3D sensors.
-The sensors are used to detect objects in the environment and can be used for example for AI.
+[Sensors](https://github.com/DerKekser/unity-sensors) is a Unity library providing various 2D and 3D sensors to detect objects within the game environment. These sensors can be particularly useful for AI development.
 
 ## Contents
 - [Sensor Types](#sensor-types)
@@ -18,21 +17,21 @@ The sensors are used to detect objects in the environment and can be used for ex
 - [License](#license)
 
 ### Sensor Types
-Each sensor is available for 2D and 3D and can be used in the same way.
+Each sensor type is available in both 2D and 3D and operates similarly
 
 #### General Sensor Properties
-| Property           | Type                   | Description                                                             |
-|--------------------|------------------------|-------------------------------------------------------------------------|
-| Auto Update Sensor | bool                   | If enabled, the sensor will be updated automatically.                   |
-| Ignore             | Array of GameObjects   | The sensor ignores the specified objects.                               |
-| Check Visibility   | bool                   | If enabled, the sensor checks whether the detected objects are visible. |
-| Scan Layer         | LayerMask              | The layer of the objects that should be detected.                       |
-| Obstruction Layer  | LayerMask              | The layer that obstructs the view if the sensor checks the visibility.  |
-| Scan Rays          | Integer                | The number of rays that should be to check the visibility.              |
-| Visibility         | Float (0-1)            | The Percentage of rays that must detect an object to be visible.        |
-| OnEnter            | UnityEvent(GameObject) | The event that is called when an object enters the sensor.              |
-| OnStay             | UnityEvent(GameObject) | The event that is called when an object stays in the sensor.            |
-| OnExit             | UnityEvent(GameObject) | The event that is called when an object exits the sensor.               |
+| Property           | Type                   | Description                                                   |
+|--------------------|------------------------|---------------------------------------------------------------|
+| Auto Update Sensor | bool                   | Enables automatic sensor updates.                             |
+| Ignore             | GameObject[]           | Ignores specified objects.                                    |
+| Check Visibility   | bool                   | Checks if detected objects are visible.                       |
+| Scan Layer         | LayerMask              | Defines the layer of detectable objects.                      |
+| Obstruction Layer  | LayerMask              | Specifies the layer obstructing visibility checks.            |
+| Scan Rays          | int                    | Number of rays used for visibility checks.                    |
+| Visibility         | float (0-1)            | Percentage of rays needed to detect an object for visibility. |
+| OnEnter            | UnityEvent(GameObject) | Triggered when an object enters the sensor's range.           |
+| OnStay             | UnityEvent(GameObject) | Triggered when an object stays within the sensor's range.     |
+| OnExit             | UnityEvent(GameObject) | Triggered when an object exits the sensor's range.            |
 
 #### Access the sensor data
 ```csharp
@@ -48,11 +47,11 @@ sensor.SensorUpdate();
 `RaySensor`
 `RaySensor2D`
 
-The RaySensor is a sensor that uses a single ray to detect objects.
+Uses a single ray to detect objects.
 
-| Property | Type  | Description               |
-|----------|-------|---------------------------|
-| Distance | Float |  The range of the sensor. |
+| Property | Type  | Description          |
+|----------|-------|----------------------|
+| Distance | Float | Range of the sensor. |
 
 ![RaySensor](/Assets/Kekser/Screenshots/ray_sensor.png)
 
@@ -60,11 +59,11 @@ The RaySensor is a sensor that uses a single ray to detect objects.
 `RangeSensor`
 `RangeSensor2D`
 
-The RangeSensor is a sensor that uses a sphere to detect objects.
+Uses a sphere to detect objects.
 
-| Property | Type  | Description              |
-|----------|-------|--------------------------|
-| Range    | Float | The range of the sensor. |
+| Property | Type  | Description          |
+|----------|-------|----------------------|
+| Range    | Float | Range of the sensor. |
 
 ![RangeSensor](/Assets/Kekser/Screenshots/range_sensor.png)
 
@@ -72,12 +71,12 @@ The RangeSensor is a sensor that uses a sphere to detect objects.
 `ViewSensor`
 `ViewSensor2D`
 
-The ViewSensor is a sensor that uses a cone to detect objects.
+Uses a cone to detect objects.
 
-| Property | Type  | Description               |
-|----------|-------|---------------------------|
-| Distance | Float |  The range of the sensor. |
-| Angle    | Float | The angle of the sensor.  |
+| Property | Type  | Description          |
+|----------|-------|----------------------|
+| Distance | Float | Range of the sensor. |
+| Angle    | Float | Angle of the sensor. |
 
 ![ViewSensor](/Assets/Kekser/Screenshots/view_sensor.png)
 
@@ -85,7 +84,7 @@ The ViewSensor is a sensor that uses a cone to detect objects.
 `TriggerSensor`
 `TriggerSensor2D`
 
-The TriggerSensor is a sensor that uses a trigger collider to detect objects.
+Uses a trigger collider to detect objects.
 The trigger collider component must be attached to the same GameObject as the sensor.
 
 ![TriggerSensor](/Assets/Kekser/Screenshots/trigger_sensor.png)

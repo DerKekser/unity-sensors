@@ -5,7 +5,7 @@ namespace Kekser.Sensors
 {
     public abstract class Sensor2D : Sensor<Collider2D>
     {
-        public override float CheckVisibility(Collider2D checkObject)
+        protected override float CheckForVisibility(Collider2D checkObject)
         {
             List<RaycastHit2D> hitList = new List<RaycastHit2D>();
             float hits = 0;

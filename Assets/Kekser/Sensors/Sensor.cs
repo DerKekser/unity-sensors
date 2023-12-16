@@ -5,6 +5,9 @@ namespace Kekser.Sensors
 {
     public abstract class Sensor<T> : MonoBehaviour where T : Component
     {
+        private const int MIN_RAYCASTS = 1;
+        private const int MAX_RAYCASTS = 10;
+        
          private List<GameObject> _detectedObjects = new List<GameObject>();
 
         [Header("Base Sensor Settings")]
@@ -18,7 +21,7 @@ namespace Kekser.Sensors
         protected LayerMask _scanLayer = 0;
         [SerializeField] 
         protected LayerMask _obstructionLayer = 0;
-        [SerializeField, Range(1, 10)] 
+        [SerializeField, Range(MIN_RAYCASTS, MAX_RAYCASTS)] 
         protected int _scanRays = 1;
         [SerializeField, Range(0f, 1f)] 
         protected float _visibility = 0.5f;
@@ -35,11 +38,53 @@ namespace Kekser.Sensors
             get => _autoUpdateSensor;
             set => _autoUpdateSensor = value;
         }
+        
+        public bool CheckVisibility
+        {
+            get => _checkVisibility;
+            set => _checkVisibility = value;
+        }
+        
+        public LayerMask ScanLayer
+        {
+            get => _scanLayer;
+            set => _scanLayer = value;
+        }
+        
+        public LayerMask ObstructionLayer
+        {
+            get => _obstructionLayer;
+            set => _obstructionLayer = value;
+        }
+        
+        public int ScanRays
+        {
+            get => _scanRays;
+            set => _scanRays = Mathf.Clamp(value, MIN_RAYCASTS, MAX_RAYCASTS);
+        }
+        
+        public float Visibility
+        {
+            get => _visibility;
+            set => _visibility = Mathf.Clamp01(value);
+        }
+        
+        public void AddIgnore(GameObject ignoreObject)
+        {
+            if (!_ignore.Contains(ignoreObject))
+                _ignore.Add(ignoreObject);
+        }
+        
+        public void RemoveIgnore(GameObject ignoreObject)
+        {
+            if (_ignore.Contains(ignoreObject))
+                _ignore.Remove(ignoreObject);
+        }
 
         public GameObject[] DetectedObjects => _detectedObjects.ToArray();
 
-        public abstract T[] GetComponentsInSensor();
-        public abstract float CheckVisibility(T checkObject);
+        protected abstract T[] GetComponentsInSensor();
+        protected abstract float CheckForVisibility(T checkObject);
         
         public void SensorUpdate()
         {
@@ -50,7 +95,7 @@ namespace Kekser.Sensors
                 if (checkObjects[i] == null || _ignore.Contains(checkObjects[i].gameObject))
                     continue;
                 
-                if (!_checkVisibility || CheckVisibility(checkObjects[i]) >= _visibility)
+                if (!_checkVisibility || CheckForVisibility(checkObjects[i]) >= _visibility)
                 {
                     oldObjects.Remove(checkObjects[i].gameObject);
                     if (!_detectedObjects.Contains(checkObjects[i].gameObject))

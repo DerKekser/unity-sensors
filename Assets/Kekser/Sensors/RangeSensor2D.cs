@@ -9,7 +9,13 @@ namespace Kekser.Sensors
         [SerializeField]
         protected float _range = 10f;
             
-        public override Collider2D[] GetComponentsInSensor()
+        public float Range
+        {
+            get => _range;
+            set => _range = value;
+        }
+
+        protected override Collider2D[] GetComponentsInSensor()
         {
             List<Collider2D> colliders = new List<Collider2D>();
             Physics2D.OverlapCircle(

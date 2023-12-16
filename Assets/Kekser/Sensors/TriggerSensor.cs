@@ -7,7 +7,7 @@ namespace Kekser.Sensors
     {
         private List<Collider> _triggerObjects = new List<Collider>();
         
-        public override Collider[] GetComponentsInSensor()
+        protected override Collider[] GetComponentsInSensor()
         {
             return _triggerObjects.ToArray();
         }

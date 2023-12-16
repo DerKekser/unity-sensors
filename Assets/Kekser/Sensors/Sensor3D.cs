@@ -4,7 +4,7 @@ namespace Kekser.Sensors
 {
     public abstract class Sensor3D : Sensor<Collider>
     {
-        public override float CheckVisibility(Collider checkObject)
+        protected override float CheckForVisibility(Collider checkObject)
         {
             RaycastHit hit;
             float hits = 0;

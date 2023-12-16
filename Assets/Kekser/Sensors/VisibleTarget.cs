@@ -7,6 +7,10 @@ namespace Kekser.Sensors
         [SerializeField] 
         private Transform[] _targets;
 
-        public Transform[] Targets => _targets;
+        public Transform[] Targets
+        {
+            get => _targets;
+            set => _targets = value;
+        }
     }
 }

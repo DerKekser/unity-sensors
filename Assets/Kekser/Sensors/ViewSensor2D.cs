@@ -8,8 +8,14 @@ namespace Kekser.Sensors
         [Header("View")] 
         [SerializeField, Range(0f, 360f)] 
         protected float _angle = 180f;
+        
+        public float Angle
+        {
+            get => _angle;
+            set => _angle = value;
+        }
 
-        public override Collider2D[] GetComponentsInSensor()
+        protected override Collider2D[] GetComponentsInSensor()
         {
             List<Collider2D> hitObjects = new List<Collider2D>(base.GetComponentsInSensor());
 

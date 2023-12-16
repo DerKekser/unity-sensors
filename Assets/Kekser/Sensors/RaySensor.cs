@@ -8,7 +8,13 @@ namespace Kekser.Sensors
         [SerializeField] 
         protected float _distance = Mathf.Infinity;
         
-        public override Collider[] GetComponentsInSensor()
+        public float Distance
+        {
+            get => _distance;
+            set => _distance = value;
+        }
+        
+        protected override Collider[] GetComponentsInSensor()
         {
             RaycastHit[] hits = Physics.RaycastAll(
                 transform.position, 

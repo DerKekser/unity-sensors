@@ -7,8 +7,14 @@ namespace Kekser.Sensors
         [Header("Range")] 
         [SerializeField]
         protected float _range = 10f;
-            
-        public override Collider[] GetComponentsInSensor()
+
+        public float Range
+        {
+            get => _range;
+            set => _range = value;
+        }
+        
+        protected override Collider[] GetComponentsInSensor()
         {
             Collider[] colliders = Physics.OverlapSphere(
                 transform.position, 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kekser.Sensors
@@ -89,7 +90,7 @@ namespace Kekser.Sensors
         public void SensorUpdate()
         {
             List<GameObject> oldObjects = new List<GameObject>(_detectedObjects);
-            T[] checkObjects = GetComponentsInSensor();
+            T[] checkObjects = gameObject.activeInHierarchy ? GetComponentsInSensor() : Array.Empty<T>();
             for (int i = 0; i < checkObjects.Length; i++)
             {
                 if (checkObjects[i] == null || _ignore.Contains(checkObjects[i].gameObject))

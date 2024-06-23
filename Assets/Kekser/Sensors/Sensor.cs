@@ -90,7 +90,7 @@ namespace Kekser.Sensors
         public void SensorUpdate()
         {
             List<GameObject> oldObjects = new List<GameObject>(_detectedObjects);
-            T[] checkObjects = gameObject.activeInHierarchy ? GetComponentsInSensor() : Array.Empty<T>();
+            T[] checkObjects = gameObject.activeInHierarchy && enabled ? GetComponentsInSensor() : Array.Empty<T>();
             for (int i = 0; i < checkObjects.Length; i++)
             {
                 if (checkObjects[i] == null || _ignore.Contains(checkObjects[i].gameObject))

@@ -18,7 +18,7 @@ namespace Kekser.Sensors
         {
             RaycastHit2D[] hits = Physics2D.RaycastAll(
                 transform.position, 
-                Vector3.Scale(transform.right, transform.localScale).normalized,
+                Vector3.Scale(transform.right, transform.lossyScale).normalized,
                 _distance, 
                 _scanLayer);
             
@@ -32,7 +32,7 @@ namespace Kekser.Sensors
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawRay(transform.position, Vector3.Scale(transform.right, transform.localScale).normalized * _distance);
+            Gizmos.DrawRay(transform.position, Vector3.Scale(transform.right, transform.lossyScale).normalized * _distance);
         }
     }
 }

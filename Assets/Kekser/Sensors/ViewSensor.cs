@@ -21,7 +21,7 @@ namespace Kekser.Sensors
 
             for (int i = hitObjects.Count - 1; i >= 0; i--)
             {
-                if (Vector3.Angle(hitObjects[i].transform.position - transform.position, Vector3.Scale(transform.forward, transform.localScale).normalized) > _angle / 2f)
+                if (Vector3.Angle(hitObjects[i].transform.position - transform.position, Vector3.Scale(transform.forward, transform.lossyScale).normalized) > _angle / 2f)
                     hitObjects.RemoveAt(i);
             }
 
@@ -31,7 +31,7 @@ namespace Kekser.Sensors
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.yellow;
-            SensorGizmos.DrawWireView(transform.position, Vector3.Scale(transform.forward, transform.localScale).normalized, _range, _angle);
+            SensorGizmos.DrawWireView(transform.position, Vector3.Scale(transform.forward, transform.lossyScale).normalized, _range, _angle);
         }
     }
 }

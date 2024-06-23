@@ -18,7 +18,7 @@ namespace Kekser.Sensors
         {
             RaycastHit[] hits = Physics.RaycastAll(
                 transform.position, 
-                transform.forward, 
+                Vector3.Scale(transform.forward, transform.localScale).normalized, 
                 _distance, 
                 _scanLayer,
                 QueryTriggerInteraction.Ignore);
@@ -33,7 +33,7 @@ namespace Kekser.Sensors
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawRay(transform.position, transform.forward * _distance);
+            Gizmos.DrawRay(transform.position, Vector3.Scale(transform.forward, transform.localScale).normalized * _distance);
         }
     }
 }

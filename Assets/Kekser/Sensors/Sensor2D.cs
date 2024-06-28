@@ -21,7 +21,8 @@ namespace Kekser.Sensors
                     Physics2D.Raycast((Vector2)transform.position, scanPoint - (Vector2)transform.position, new ContactFilter2D()
                     {
                         useLayerMask = true,
-                        layerMask = _obstructionLayer
+                        layerMask = _obstructionLayer,
+                        useTriggers = false
                     }, hitList, Vector2.Distance(transform.position, scanPoint));
 
                     for (int j = 0; j < hitList.Count; j++)
@@ -51,7 +52,8 @@ namespace Kekser.Sensors
                     Physics2D.Raycast((Vector2)transform.position, scanPoint - (Vector2)transform.position, new ContactFilter2D()
                     {
                         useLayerMask = true,
-                        layerMask = _obstructionLayer
+                        layerMask = _obstructionLayer,
+                        useTriggers = false
                     }, hitList, Vector2.Distance(transform.position, scanPoint));
 
                     for (int j = 0; j < hitList.Count; j++)

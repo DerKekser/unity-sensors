@@ -24,7 +24,8 @@ namespace Kekser.Sensors
                 new ContactFilter2D()
             {
                 useLayerMask = true,
-                layerMask = _scanLayer
+                layerMask = _scanLayer,
+                useTriggers = false
             }, colliders);
             return colliders.ToArray();
         }

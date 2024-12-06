@@ -21,7 +21,8 @@ namespace Kekser.Sensors
 
             for (int i = hitObjects.Count - 1; i >= 0; i--)
             {
-                if (Vector2.Angle(hitObjects[i].transform.position - transform.position, Vector3.Scale(transform.right, transform.lossyScale).normalized) > _angle / 2f)
+                Vector3 closestPoint = (Vector2) hitObjects[i].ClosestPoint(transform.position);
+                if (Vector2.Angle(closestPoint - transform.position, Vector3.Scale(transform.right, transform.lossyScale).normalized) > _angle / 2f)
                     hitObjects.RemoveAt(i);
             }
 

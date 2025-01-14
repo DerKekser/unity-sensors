@@ -4,28 +4,15 @@ using UnityEngine;
 
 namespace Kekser.Sensors
 {
-    public abstract class Sensor<T> : MonoBehaviour where T : Component
+    public abstract class Sensor : MonoBehaviour
     {
-        private const int MIN_RAYCASTS = 1;
-        private const int MAX_RAYCASTS = 10;
-        
-         private List<GameObject> _detectedObjects = new List<GameObject>();
+        protected List<GameObject> _detectedObjects = new List<GameObject>();
 
         [Header("Base Sensor Settings")]
         [SerializeField] 
         protected bool _autoUpdateSensor = false;
         [SerializeField] 
         protected List<GameObject> _ignore;
-        [SerializeField] 
-        protected bool _checkVisibility = false;
-        [SerializeField] 
-        protected LayerMask _scanLayer = 0;
-        [SerializeField] 
-        protected LayerMask _obstructionLayer = 0;
-        [SerializeField, Range(MIN_RAYCASTS, MAX_RAYCASTS)] 
-        protected int _scanRays = 1;
-        [SerializeField, Range(0f, 1f)] 
-        protected float _visibility = 0.5f;
         [Header("Events")] 
         [SerializeField] 
         public SensorEvent OnEnter;
@@ -39,6 +26,47 @@ namespace Kekser.Sensors
             get => _autoUpdateSensor;
             set => _autoUpdateSensor = value;
         }
+        
+        public void AddIgnore(GameObject ignoreObject)
+        {
+            if (!_ignore.Contains(ignoreObject))
+                _ignore.Add(ignoreObject);
+        }
+        
+        public void RemoveIgnore(GameObject ignoreObject)
+        {
+            if (_ignore.Contains(ignoreObject))
+                _ignore.Remove(ignoreObject);
+        }
+
+        public GameObject[] DetectedObjects => _detectedObjects.ToArray();
+        
+        public abstract void SensorUpdate();
+        
+        protected virtual void FixedUpdate()
+        {
+            if (!_autoUpdateSensor)
+                return;
+            SensorUpdate();
+        }
+    }
+
+    public abstract class Sensor<T> : Sensor where T : Component
+    {
+        private const int MIN_RAYCASTS = 1;
+        private const int MAX_RAYCASTS = 10;
+
+        [Header("Visibility Settings")]
+        [SerializeField] 
+        protected bool _checkVisibility = false;
+        [SerializeField] 
+        protected LayerMask _scanLayer = 0;
+        [SerializeField] 
+        protected LayerMask _obstructionLayer = 0;
+        [SerializeField, Range(MIN_RAYCASTS, MAX_RAYCASTS)] 
+        protected int _scanRays = 1;
+        [SerializeField, Range(0f, 1f)] 
+        protected float _visibility = 0.5f;
         
         public bool CheckVisibility
         {
@@ -69,25 +97,11 @@ namespace Kekser.Sensors
             get => _visibility;
             set => _visibility = Mathf.Clamp01(value);
         }
-        
-        public void AddIgnore(GameObject ignoreObject)
-        {
-            if (!_ignore.Contains(ignoreObject))
-                _ignore.Add(ignoreObject);
-        }
-        
-        public void RemoveIgnore(GameObject ignoreObject)
-        {
-            if (_ignore.Contains(ignoreObject))
-                _ignore.Remove(ignoreObject);
-        }
-
-        public GameObject[] DetectedObjects => _detectedObjects.ToArray();
 
         protected abstract T[] GetComponentsInSensor();
         protected abstract float CheckForVisibility(T checkObject);
         
-        public void SensorUpdate()
+        public override void SensorUpdate()
         {
             List<GameObject> oldObjects = new List<GameObject>(_detectedObjects);
             T[] checkObjects = gameObject.activeInHierarchy && enabled ? GetComponentsInSensor() : Array.Empty<T>();
@@ -116,13 +130,6 @@ namespace Kekser.Sensors
                 _detectedObjects.Remove(oldObjects[i]);
                 OnExit.Invoke(oldObjects[i]);
             }
-        }
-        
-        protected virtual void FixedUpdate()
-        {
-            if (!_autoUpdateSensor)
-                return;
-            SensorUpdate();
         }
     }
 }

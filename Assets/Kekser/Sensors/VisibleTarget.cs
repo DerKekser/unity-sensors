@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Kekser.Sensors
 {
     public class VisibleTarget : MonoBehaviour
     {
         [SerializeField] 
-        private Transform[] _targets;
+        private Transform[] _targets = Array.Empty<Transform>();
 
         public Transform[] Targets
         {

@@ -12,14 +12,14 @@ namespace Kekser.Sensors
         [SerializeField] 
         protected bool _autoUpdateSensor = false;
         [SerializeField] 
-        protected List<GameObject> _ignore;
+        protected List<GameObject> _ignore = new List<GameObject>();
         [Header("Events")] 
         [SerializeField] 
-        public SensorEvent OnEnter;
+        public SensorEvent OnEnter = new SensorEvent();
         [SerializeField] 
-        public SensorEvent OnStay;
+        public SensorEvent OnStay = new SensorEvent();
         [SerializeField] 
-        public SensorEvent OnExit;
+        public SensorEvent OnExit = new SensorEvent();
 
         public bool AutoUpdateSensor
         {

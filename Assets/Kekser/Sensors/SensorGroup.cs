@@ -7,7 +7,7 @@ namespace Kekser.Sensors
     public class SensorGroup : Sensor
     {
         [SerializeField]
-        private Sensor[] _sensors;
+        private Sensor[] _sensors = Array.Empty<Sensor>();
         
         public override void SensorUpdate()
         {
